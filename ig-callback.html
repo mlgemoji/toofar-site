@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Authorization complete — Too Far?</title>
+  <style>body{max-width:760px;margin:10vh auto;padding:0 20px;background:#0b0b0d;color:#f7f4ed;font:17px/1.6 system-ui,sans-serif}
+  code{display:block;background:#17171b;padding:16px;border-radius:10px;word-break:break-all;margin:18px 0;color:#ffd21f}
+  a{color:#ffd21f}</style>
+</head>
+<body>
+  <h1>Authorization received</h1>
+  <p>Copy the value below and paste it back into the terminal.</p>
+  <code id="code">reading…</code>
+  <p id="note"></p>
+  <p><a href="index.html">← Too Far?</a></p>
+  <script>
+    var p = new URLSearchParams(location.search);
+    var el = document.getElementById('code');
+    if (p.get('error')) {
+      el.textContent = p.get('error_description') || p.get('error');
+      document.getElementById('note').textContent = 'Authorization was refused. Nothing was granted.';
+    } else if (p.get('code')) {
+      el.textContent = p.get('code').split('#')[0];
+    } else {
+      el.textContent = location.href;
+      document.getElementById('note').textContent = 'No code parameter found; paste the whole address instead.';
+    }
+  </script>
+</body></html>
